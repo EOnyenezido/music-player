@@ -31,7 +31,7 @@ function radio()  {
 	})
 }
 
-DZ.login(function(response) {
+/*DZ.login(function(response) {
 	if (response.authResponse) {
 		login();
 		DZ.api('/user/me', function(response) {
@@ -49,11 +49,11 @@ DZ.login(function(response) {
 		/*console.log('Welcome!  Fetching your information.... ');
 		DZ.api('/user/me', function(response) {
 			console.log('Good to see you, ' + response.name + '.');
-		});*/
+		});
 	} else {
 		console.log('User cancelled login or did not fully authorize.');
 	}
-}, {perms: 'basic_access,email'});
+}, {perms: 'basic_access,email'});*/
 
 function login(){
 	/*DZ.api('/user/me', function(response) {
