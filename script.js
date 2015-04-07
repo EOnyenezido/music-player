@@ -13,8 +13,8 @@ DZ.init({
 		
 });
 
-//$(document).ready(function(){$("#modal1").openModal()});
-//(document).ready(radio());
+$(document).ready(function(){$("#modal1").openModal()});
+$(document).ready(radio());
 
 function radio()  {
 	DZ.api("/radio", function(json){
@@ -31,42 +31,7 @@ function radio()  {
 	})
 }
 
-/*DZ.login(function(response) {
-	if (response.authResponse) {
-		login();
-		DZ.api('/user/me', function(response) {
-		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
-		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
-		document.getElementById('loginstatus').setAttribute('onclick', "logout()");
-		document.getElementById('userpic').setAttribute('src', response.picture);
-		document.getElementById('username').innerHTML = response.name;
-		document.getElementById('userid').innerHTML = response.id;
-		document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
-		document.getElementById('country').innerHTML = response.country;
-		});
-		search2(145);
-		nowP(90428585);
-		/*console.log('Welcome!  Fetching your information.... ');
-		DZ.api('/user/me', function(response) {
-			console.log('Good to see you, ' + response.name + '.');
-		});
-	} else {
-		console.log('User cancelled login or did not fully authorize.');
-	}
-}, {perms: 'basic_access,email'});*/
-
 function login(){
-	/*DZ.api('/user/me', function(response) {
-		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
-		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
-		document.getElementById('loginstatus').setAttribute('onclick', "logout()");
-		document.getElementById('userpic').setAttribute('src', response.picture);
-		document.getElementById('username').innerHTML = response.name;
-		document.getElementById('userid').innerHTML = response.id;
-		document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
-		document.getElementById('country').innerHTML = response.country;
-	});
-	search2(145);*/
 	DZ.login(function(response) {
 	if (response.authResponse) {
 		DZ.api('/user/me', function(response) {
@@ -81,11 +46,6 @@ function login(){
 		});
 		search2(145);
 		nowP(90428585);
-		radio();
-		/*console.log('Welcome!  Fetching your information.... ');
-		DZ.api('/user/me', function(response) {
-			console.log('Good to see you, ' + response.name + '.');
-		});*/
 	} else {
 		console.log('User cancelled login or did not fully authorize.');
 	}
@@ -217,15 +177,6 @@ function moreSongs(current)  {
 	})
 }
 
-/*<li class="collection-item avatar">
-      <img src="json.data[i].picture" alt="" class="circle">
-      <span class="title">json.data[i].name</span>
-      <p>No. of albums:&nbsp json.data[i].nb_album <br>
-         Fans:&nbsp json.data[i].nb_fans
-      </p>
-      <a href="#!" class="secondary-content"><i class="mdi-av-play-arrow red-text" onclick="search2(json.data[i].name)"></i></a>
-</li>*/
-
 function search2(current) {console.log(current);
 	DZ.api("/artist/" + current + "/top?limit=20", function(json){
 	
@@ -235,7 +186,3 @@ function search2(current) {console.log(current);
 			      $('#results').append('<a href="#!" class="collection-item">' + json.data[i].title + ' - ' + json.data[i].album.title + '<i class="small mdi-av-playlist-add right" onclick="playlist(' + json.data[i].id + ')"></i><i class="small mdi-av-play-circle-outline right" onclick="DZ.player.playTracks([' + json.data[i].id + '])"></i></a>');
 				}
 })}
-
-//var ike = document.createElement("p");
-
-//ike.innerHTML = emeka;
