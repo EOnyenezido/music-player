@@ -13,7 +13,7 @@ DZ.init({
 		
 });
 
-//$(document).ready(function(){$("#modal1").openModal()});
+$(document).ready(function(){$("#modal1").openModal()});
 //(document).ready(radio());
 
 function radio()  {
@@ -34,6 +34,18 @@ function radio()  {
 DZ.login(function(response) {
 	if (response.authResponse) {
 		login();
+		DZ.api('/user/me', function(response) {
+		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
+		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
+		document.getElementById('loginstatus').setAttribute('onclick', "logout()");
+		document.getElementById('userpic').setAttribute('src', response.picture);
+		document.getElementById('username').innerHTML = response.name;
+		document.getElementById('userid').innerHTML = response.id;
+		document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
+		document.getElementById('country').innerHTML = response.country;
+		});
+		search2(145);
+		nowP(90428585);
 		/*console.log('Welcome!  Fetching your information.... ');
 		DZ.api('/user/me', function(response) {
 			console.log('Good to see you, ' + response.name + '.');
@@ -44,7 +56,7 @@ DZ.login(function(response) {
 }, {perms: 'basic_access,email'});
 
 function login(){
-	DZ.api('/user/me', function(response) {
+	/*DZ.api('/user/me', function(response) {
 		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
 		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
 		document.getElementById('loginstatus').setAttribute('onclick', "logout()");
@@ -54,6 +66,31 @@ function login(){
 		document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
 		document.getElementById('country').innerHTML = response.country;
 	});
+	search2(145);*/
+	DZ.login(function(response) {
+	if (response.authResponse) {
+		login();
+		DZ.api('/user/me', function(response) {
+		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
+		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
+		document.getElementById('loginstatus').setAttribute('onclick', "logout()");
+		document.getElementById('userpic').setAttribute('src', response.picture);
+		document.getElementById('username').innerHTML = response.name;
+		document.getElementById('userid').innerHTML = response.id;
+		document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
+		document.getElementById('country').innerHTML = response.country;
+		});
+		search2(145);
+		nowP(90428585);
+		radio();
+		/*console.log('Welcome!  Fetching your information.... ');
+		DZ.api('/user/me', function(response) {
+			console.log('Good to see you, ' + response.name + '.');
+		});*/
+	} else {
+		console.log('User cancelled login or did not fully authorize.');
+	}
+	}, {perms: 'basic_access,email'});
 };
 
 function logout()  {
