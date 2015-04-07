@@ -69,7 +69,6 @@ function login(){
 	search2(145);*/
 	DZ.login(function(response) {
 	if (response.authResponse) {
-		login();
 		DZ.api('/user/me', function(response) {
 		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
 		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
