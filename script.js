@@ -1,7 +1,7 @@
 DZ.init({
 		appId  : '154751',
 		channelUrl : 'http://andela-eonyenezido.github.io/activate',
-		/*player : {
+		player : {
 			container: 'player',
 			width : 600,
 			height : 300,
@@ -9,12 +9,16 @@ DZ.init({
 			onload : function(player){
 				player.volume = 200;
 			}
-		}*/
+		}
 		
 });
 
-//$(document).ready(function(){$("#modal1").openModal()});
-//$(document).ready(radio());
+$(document).ready(function(){$("#modal1").openModal()});
+$(document).ready(radio());
+
+DZ.Event.subscribe('current_track', function(track, evt_name){
+	nowP(track.track.id);
+});
 
 function radio()  {
 	DZ.api("/radio", function(json){
@@ -33,22 +37,23 @@ function radio()  {
 
 function login(){
 	DZ.login(function(response) {
-	if (response.authResponse) {
-		DZ.api('/user/me', function(response) {
-		$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
-		document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
-		document.getElementById('loginstatus').setAttribute('onclick', "logout()");
-		document.getElementById('userpic').setAttribute('src', response.picture);
-		document.getElementById('username').innerHTML = response.name;
-		document.getElementById('userid').innerHTML = response.id;
-		document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
-		document.getElementById('country').innerHTML = response.country;
-		});
-		search2(145);
-		nowP(90428585);
-	} else {
-		console.log('User cancelled login or did not fully authorize.');
-	}
+		if (response.authResponse) {
+			DZ.api('/user/me', function(response) {
+				$("<li><a id='welcome' href='" + response.link + "' target='_blank'>Welcome,&nbsp" + response.name + "</a></li>").insertBefore("#loginstatus")
+				document.getElementById("loginstatus").innerHTML = "&nbsp&nbsp&nbspLogout&nbsp&nbsp&nbsp";
+				document.getElementById('loginstatus').setAttribute('onclick', "logout()");
+				document.getElementById('userpic').setAttribute('src', response.picture);
+				document.getElementById('username').innerHTML = response.name;
+				document.getElementById('userid').innerHTML = response.id;
+				document.getElementById('userlink').innerHTML = "<a href='" + response.link + "' target='_blank'>Open profile</a>";
+				document.getElementById('country').innerHTML = response.country;
+			});
+			search2(145);
+			nowP(90428585);
+		} 
+		else {
+			console.log('User cancelled login or did not fully authorize.');
+		}
 	}, {perms: 'basic_access,email'});
 };
 
@@ -66,17 +71,17 @@ function logout()  {
 }
 
 function search() {DZ.api('/search?q=' + document.getElementById("search").value, function(json){
-				$('#results').empty();
-				for (var i=0, len = json.data.length; i<len ; i++)
-				{
-			      $('#results').append('<a href="#!" class="collection-item">' + json.data[i].title + ' - ' + json.data[i].album.title + '<i class="small mdi-av-playlist-add right" onclick="playlist(' + json.data[i].id + ')"></i><i class="small mdi-av-play-circle-outline right" onclick="DZ.player.playTracks([' + json.data[i].id + '])"></i></a>');
-				}
+	$('#results').empty();
+	for (var i=0, len = json.data.length; i<len ; i++)
+	{
+	  $('#results').append('<a href="#!" class="truncate collection-item">' + json.data[i].title + ' - ' + json.data[i].album.title + '<i class="small grey-text text-darken-3 mdi-av-playlist-add right" onclick="playlist(' + json.data[i].id + ')"></i><i class="small red-text mdi-av-play-circle-fill right" onclick="DZ.player.playTracks([' + json.data[i].id + '])"></i></a>');
+	}
 })}
 
 
 function recent(current) {
 	DZ.api("/track/" + current, function(json){
-		$('#recent').prepend('<a href="#!" class="collection-item">' + json.title + ' - ' + json.album.title + '<i class="small mdi-av-play-circle-outline right" onclick="DZ.player.playTracks([' + json.id + '])"></i></a>');
+		$('#recent').prepend('<a href="#!" class="truncate collection-item">' + json.title + ' - ' + json.album.title + '<i class="small mdi-av-play-circle-outline right" onclick="DZ.player.playTracks([' + json.id + '])"></i></a>');
 	})
 }
 
@@ -84,7 +89,7 @@ var pl_list = [];
 
 function playlist(current) {
 	DZ.api("/track/" + current, function(json){
-		$('#playlist').append('<a href="#!" id="' + json.id + '"  class="collection-item">' + json.title + ' - ' + json.album.title + '<i class="small mdi-content-clear right" onclick="removeFromPlaylist(' + json.id + ')"></i></a>');
+		$('#playlist').append('<a href="#!" id="' + json.id + '"  class="truncate collection-item">' + json.title + ' - ' + json.album.title + '<i class="small red-text mdi-content-clear right" onclick="removeFromPlaylist(' + json.id + ')"></i></a>');
 		pl_list.push(json.id);
 	})
 }
@@ -104,10 +109,6 @@ function removeFromPlaylist(item) {
 		return (value !== item);
 	})
 }
-
-DZ.Event.subscribe('current_track', function(track, evt_name){
-	nowP(track.track.id);
-});
 
 function nowP(current) {
 	DZ.api("/track/" + current, function(json){
@@ -179,10 +180,9 @@ function moreSongs(current)  {
 
 function search2(current) {console.log(current);
 	DZ.api("/artist/" + current + "/top?limit=20", function(json){
-	
-				$('#results').empty();
-				for (var i=0, len = json.data.length; i<len ; i++)
-				{
-			      $('#results').append('<a href="#!" class="collection-item">' + json.data[i].title + ' - ' + json.data[i].album.title + '<i class="small mdi-av-playlist-add right" onclick="playlist(' + json.data[i].id + ')"></i><i class="small mdi-av-play-circle-outline right" onclick="DZ.player.playTracks([' + json.data[i].id + '])"></i></a>');
-				}
+		$('#results').empty();
+		for (var i=0, len = json.data.length; i<len ; i++)
+		{
+		  $('#results').append('<a href="#!" class="truncate collection-item">' + json.data[i].title + ' - ' + json.data[i].album.title + '<i class="grey-text text-darken-3 small mdi-av-playlist-add right" onclick="playlist(' + json.data[i].id + ')"></i><i class="red-text small mdi-av-play-circle-fill right" onclick="DZ.player.playTracks([' + json.data[i].id + '])"></i></a>');
+		}
 })}
