@@ -13,7 +13,7 @@ DZ.init({
 		
 });
 
-$(document).ready(function(){$("#modal1").openModal()});
+//$(document).ready(function(){$("#modal1").openModal()});
 //(document).ready(radio());
 
 function radio()  {
