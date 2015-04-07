@@ -1,7 +1,7 @@
 DZ.init({
 		appId  : '154751',
 		channelUrl : 'http://andela-eonyenezido.github.io/activate',
-		player : {
+		/*player : {
 			container: 'player',
 			width : 600,
 			height : 300,
@@ -9,12 +9,12 @@ DZ.init({
 			onload : function(player){
 				player.volume = 200;
 			}
-		}
+		}*/
 		
 });
 
-$(document).ready(function(){$("#modal1").openModal()});
-$(document).ready(radio());
+//$(document).ready(function(){$("#modal1").openModal()});
+//$(document).ready(radio());
 
 function radio()  {
 	DZ.api("/radio", function(json){
