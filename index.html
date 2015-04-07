@@ -2,21 +2,24 @@
 <html>
 
 <head>
-	<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+	<script type="text/javascript">
+		//httpChannel.setRequestHeader("Access-Control-Allow-Origin", "*", false);
+	</script>
+	<script src="dz.js"></script>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
 
 <body>
 	<div id="dz-root"></div>
 	<div class="navbar-fixed">
-    	<nav>
+    	<nav class="deep-purple accent-1">
       		<div class="nav-wrapper">
-        		<a href="emeka.onyenezido@andela.co" class="">
+        		<a href="emeka.onyenezido@andela.co" class=""><img id="logopic" width="132" height="30" src="logo.png">
         		</a>
-        		<ul class="right">
+        		<ul class="right grey-text text-darken-3">
+              <li id="loginstatus"><a href="#!" onclick="login()">Login</a></li>
         			<li><a href="sass.html"><i class="mdi-action-search"></i></a></li>
         			<li><a href="components.html"><i class="mdi-action-view-module"></i></a></li>
         			<li><a href="javascript.html"><i class="mdi-navigation-refresh"></i></a></li>
@@ -25,32 +28,50 @@
       		</div>
     	</nav>
   	</div>
-  	<div class="row">
-        <div class="col s1">
-        	<img src="passport.jpg" class="circle responsive-img">
-        </div>
-        <div class="col s11">
-        	<span class="black-text">
-        	Onyenezido Chukwuemeka Victor<br>Andela Class VI<br>A Music Player
-        	</span>
-        </div>
-    </div>
 	<div>
 		<div class="row">
 			<div class="col s2">
-        	<!-- Grey navigation panel -->
-      		</div>
+      <!-- Left navigation panel -->
+          <div class="section">
+            <img id="userpic" class="materialboxed" width="100" height="100" src="">
+          </div>
+            <ul>
+                <li><span id='username' class="someText">UserName</span></li>
+                <div class="divider"></div>
+                <li><span class="someTitle">Id:&nbsp</span><span id='userid' class="someText">SomeId</span></li>
+                <div class="divider"></div>
+                <li><span class="someTitle">Profile:&nbsp</span><span id='userlink' class="someText">SomeLink</span></li>
+                <div class="divider"></div>
+                <li><span class="someTitle">Country:&nbsp</span><span id='country' class="someText">Country</span></li>
+                <div class="divider"></div>
+            </ul>
+          
+        <ul class="collapsible popout" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header colTitle"><i class="mdi-av-album"></i>Other songs in this album</div>
+            <div class="collapsible-body"><div id="othersongs" class="collection"></div></div>
+          </li>
+          <li>
+            <div class="collapsible-header colTitle"><i class="mdi-av-queue-music"></i>Top 5 by this artist</div>
+            <div class="collapsible-body"><div id="top5" class="collection"></div></div>
+          </li>
+          <li>
+            <div class="collapsible-header colTitle"><i class="mdi-av-equalizer"></i>More Songs</div>
+            <div class="collapsible-body"><div id="moresongs" class="collection"></div></div>
+          </li>
+        </ul>
+      </div>
       		<div class="col s8">
       			<div class="divider"></div>
   				<div class="section">
   					<div class="row">
-        				<div class="input-field col s6">
-        					<i class="mdi-action-search prefix"></i>
-          					<input placeholder="Artist/Song/Album" id="search" type="text" class="validate">
-          					<label for="search">Search for your favorite songs!</label>
+        				<div class="input-field col s10">
+        					<i class="mdi-editor-mode-edit prefix red-text text-accent-1"></i>
+          				<input placeholder="Artist/Song/Album" id="search" type="text" class="validate">
+          				<label for="search">Search for your favorite songs!</label>
         				</div>
-        				<div class="input-field col s6">
-          					<button class="btn waves-effect waves-light" onclick="search()">Go!<i class="mdi-content-send right"></i></button>
+        				<div class="input-field col s2">
+          				<button class="btn waves-effect waves-light red accent-1" onclick="search()">Go!<i class="mdi-action-search left"></i></button>
         				</div>
       				</div>
   				</div>
@@ -59,42 +80,58 @@
         		<!-- Modal Trigger -->
         		<div id="player"></div>
         		<div class="divider"></div>
+            <div class="col s12">
+                <div class="section">
+                  <div class="row">
+                    <div class="col s3">
+                      <img id="alimg" class="materialboxed" width="200" height="200" src="">
+                    </div>
+                    <div class="col s9 left">
+                      <ul>
+                        <li><span id='altit' class="someTitle">Album</span><br><span id='altxt' class="someText">AlbumName</span></li>
+                        <div class="divider"></div>
+                        <div class="section"><li><span id='sotit' class="someTitle">Song</span><br><span id='sotxt' class="someText">SongName</span></li></div>
+                        <div class="divider"></div>
+                        <div class="section"><li><span id='artit' class="someTitle">Artist</span><br><span id='artxt' class="someText">ArtistName</span></li></div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="divider"></div>
+              </div>
   				<div class="section">
   					 <div class="row">
     					<div class="col s12">
       						<ul class="tabs">
         						<li class="tab col s3"><a href="#test1">Search</a></li>
-        						<li class="tab col s3"><a href="#test2">Now Playing</a></li>
-        						<li class="tab col s3"><a href="#test3">Test 3</a></li>
-        						<li class="tab col s3"><a href="#test4">Test 4</a></li>
+        						<li class="tab col s3"><a href="#test3">Recently Played</a></li>
+                    <li class="tab col s3"><a href="#test2">Playlist</a></li>
+        						<li class="tab col s3"><a href="#test4">Radio</a></li>
      						 </ul>
     					</div>
     					<div id="test1" class="col s12">
     						<div id="results" class="collection">
         						
-      						</div>
+      					</div>
     					</div>
    						<div id="test2" class="col s12">
-   							<div class="section">
-   								<div class="row">
-   									<div class="col s3">
-   										<img id="alimg" class="materialboxed pinshure" width="200" height="250" src="">
-   									</div>
-   									<div class="col s9 left">
-   										<ul>
-   											<li><span id='altit' class="someTitle">Album</span><br><span id='altxt' class="someText">AlbumName</span></li>
-   											<div class="divider"></div>
-   											<div class="section"><li><span id='sotit' class="someTitle">Song</span><br><span id='sotxt' class="someText">SongName</span></li></div>
-   											<div class="divider"></div>
-   											<div class="section"><li><span id='artit' class="someTitle">Artist</span><br><span id='artxt' class="someText">ArtistName</span></li></div>
-    									</ul>
-   									</div>
-   								</div>
-  							</div>
-  							<div class="divider"></div>
+                <div class="center-align section">
+                  <a class="btn-floating btn-large waves-effect waves-light red" onclick="clearPlaylist()"><i class="mdi-content-clear"></i></a>
+                  <a class="btn-floating btn-large waves-effect waves-light red" onclick="playPlaylist()"><i class="mdi-av-play-arrow"></i></a>
+                </div>
+                
+   							<div id="playlist" class="collection">
+                    
+                </div>
    						</div>
-   						<div id="test3" class="col s12">Test 3</div>
-    					<div id="test4" class="col s12">Test 4</div>
+   						<div id="test3" class="col s12">
+                <div id="recent" class="collection">
+                    
+                </div>
+              </div>
+    					<div id="test4" class="col s12">
+                
+              </div>
   					</div>
   				</div>
   				<div class="divider"></div>
@@ -116,35 +153,71 @@
       		</div>
       		<div class="col s2">
         	<!-- Grey navigation panel -->
+            <div class="section">
+              <img id="artistpic" class="materialboxed" width="200" height="200" src="">
+            </div>
+            <div class="divider"></div>
+            <ul>
+                <li><span class="someTitle">Name</span><br><span id='artistname' class="someText">ArtistName</span></li><br>
+                <div class="divider"></div>
+                 <div class="section"><li><span class="someTitle">Link</span><br><span id='artistlink' class="someText">SomeLink</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Number of Albums</span><br><span id='artistalbums' class="someText">SomeNumber</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Fans</span><br><span id='artistfans' class="someText">SomeNumber</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Album Name</span><br><span id='albumname' class="someText">SomeName</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Release Date</span><br><span id='reldate' class="someText">SomeDate</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Song Name</span><br><span id='songname' class="someText">SomeName</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Position in Album</span><br><span id='songpos' class="someText">SomeNumber</span></li></div>
+                <div class="divider"></div>
+                <div class="section"><li><span class="someTitle">Song Rank(Worldwide)</span><br><span id='songrank' class="someText">SomeNumber</span></li></div>
+            </ul>
       		</div>
     	</div>
 	</div>
-	<footer class="page-footer">
+	<footer class="page-footer indigo accent-1">
           <div class="container">
             <div class="row">
               <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                <div class="row">
+                  <div class="col s4">
+                    <img src="passport.jpg" class="circle responsive-img">
+                  </div>
+                  <div class="col s8">
+                    <span class="grey-text text-lighten-3">
+                    Onyenezido Chukwuemeka Victor<br>Andela Class VI<br>A Music Player
+                    </span>
+                    <br><!--a href="https://twitter.com/sleon_victor" class="twitter-follow-button" data-show-count="false">Follow @sleon_victor</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script-->
+
+                  </div>
+                </div>
               </div>
               <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
+                <h5 class="white-text">Share my player!&nbsp<i class="small mdi-social-share"></i></h5>
+
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><!--iframe name="f3aa0b5e3c" width="135px" height="21px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:share_button Facebook Social Plugin" src="http://www.facebook.com/v2.3/plugins/share_button.php?app_id=140925110817&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2F6Dg4oLkBbYq.js%3Fversion%3D41%23cb%3Df36a2c35ec%26domain%3D%26origin%3Dfile%253A%252F%252F%252Ff419739e4%26relation%3Dparent.parent&amp;container_width=285&amp;href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey" style="border: none; visibility: visible;"></iframe--></li>
+                  <li><!--a href="https://twitter.com/share" class="twitter-share-button" data-url="http://andela-eonyenezido.github.io/music-player" data-via="sleon_victor" data-hashtags="andela">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script--></li>
+                  <li><!--div class="g-plus" data-action="share" data-href="http://andela-eonyenezido.github.io/music-player"></div--></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="footer-copyright">
+          <div class="footer-copyright deep-purple darken-4">
             <div class="container">
-            © 2014 Copyright Text
+            © 2015 - Forever All rights reserved(Yes, I really am gonna sue you)
             <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
           </div>
     </footer>
-	
+    <!--script src="https://apis.google.com/js/platform.js" async defer></script-->	
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/jquery.timeago.min.js"></script>
     <script src="js/prism.js"></script>	

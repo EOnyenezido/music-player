@@ -1,5 +1,5 @@
-.pinshure  {
-	border: silver thin solid;
+#logopic  {
+	margin: 15px auto auto auto;
 }
 
 .someTitle  {
@@ -10,4 +10,18 @@
 .someText  {
 	font-size: 8pt;
 	color: gray;
+}
+
+.colTitle  {
+	font-size: 8pt;
+}
+
+.colText  {
+	font-size: 8pt;
+	color: black;
+}
+
+#dzplayer  {
+	margin-left: auto;
+	margin-right: auto;
 }
